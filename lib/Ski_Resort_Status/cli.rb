@@ -1,4 +1,9 @@
 class SkiResortStatus::CLI
+
+  def initialize
+    @controller = SkiResortStatus::Controller.new
+  end
+
   def call
     puts "***********************************"
     puts "*    Welcome to the Snow Status    *"
@@ -9,28 +14,26 @@ class SkiResortStatus::CLI
   end
 
   def regions
+    puts "Please Choose Region - by number"
+    puts ""
+    puts "1. Regions"
+    puts "2. All"
 
-    # while input != "exit"
-      puts "Please Choose Region - by number"
-      puts ""
-      puts "1. Regions"
-      puts "2. All"
+    input = gets.chomp
+    @region_number = input
 
+    case input
+    when "1"
+      region_menu(input)
+    when "2"
+      region_menu(input)
+    when "exit"
+      puts "Logging out"
+    else
+      puts "Please re-enter the region number"
       input = gets.chomp
       @region_number = input
-
-      case input
-      when "1"
-        region_menu(input)
-      when "2"
-        region_menu(input)
-      when "exit"
-        puts "Logging out"
-      else
-        puts "Please re-enter the region number"
-        input = gets.chomp
-        @region_number = input
-      end
+    end
   end
 
   def region_menu(region_number)
@@ -48,15 +51,15 @@ class SkiResortStatus::CLI
     input = gets.chomp
     case input
     when "1"
-      open_resorts
+      @controller.open_resorts
     when "2"
-      weekend_resorts
+      @controller.weekend_resorts
     when "3"
-      all_open
+      @controller.all_open
     when "4"
-      all_resorts
+      @controller.all_resorts
     when "5"
-      closed_resorts
+      @controller.closed_resorts
     when "main"
       regions
     when "exit"
@@ -67,30 +70,38 @@ class SkiResortStatus::CLI
     end
   end
 
-  def open_resorts
-    puts "all open resorts"
-    restart?
-  end
-
-  def weekend_resorts
-    puts "weekend only resorts"
-    restart?
-  end
-
-  def all_open
-    puts "here are all the open resorts inclusive of weekend only resorts"
-    restart?
-  end
-
-  def all_resorts
-    puts "all resorts"
-    restart?
-  end
-
-  def closed_resorts
-    puts "closed resorts"
-    restart?
-  end
+  # def open_resorts
+  #   puts "all open resorts"
+  #   restart?
+  # end
+  #
+  # def weekend_resorts
+  #   puts "weekend only resorts"
+  #   restart?
+  # end
+  #
+  # def all_open
+  #   puts "here are all the open resorts inclusive of weekend only resorts"
+  #   restart?
+  # end
+  #
+  # def all_resorts
+  #   SkiResortStatus::SkiResort.all.each.with_index(1) do |attribute, index|
+  #     puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+  #   end
+  #   puts "Please select resort you want to learn more about"
+  #   input = gets.chomp
+  #   resort_details(input)
+  # end
+  #
+  # def closed_resorts
+  #   puts "closed resorts"
+  #   restart?
+  # end
+  #
+  # def resort_details(input)
+  #
+  # end
 
   def restart?
     puts ""

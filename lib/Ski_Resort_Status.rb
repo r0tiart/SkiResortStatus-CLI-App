@@ -4,7 +4,11 @@ module SkiResortStatus
   # Your code goes here...
 end
 
+require_relative "./Ski_Resort_Status/ski_resort"
+require_relative "./Ski_Resort_Status/controller"
 require_relative "./Ski_Resort_Status/cli"
+
+
 require "pry"
 require "nokogiri"
 require "open-uri"
