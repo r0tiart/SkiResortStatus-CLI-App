@@ -83,7 +83,10 @@ class SkiResortStatus::CLI
   end
 
   def all_resorts
-    puts "all resorts"
+    SkiResortStatus::SkiResort.all.each.with_index(1) do |resort, index|
+      puts "#{index}. #{resort.name}, #{resort.region}, #{resort.status}"
+      puts ""
+    end
     restart?
   end
 

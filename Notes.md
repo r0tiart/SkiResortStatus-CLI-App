@@ -34,3 +34,5 @@ rows = table.css("tr")
 rows.shift(2)
 rows.pop
 rows - array or nokogiri rows after first 2 rows
+
+build class that instantiates resorts
