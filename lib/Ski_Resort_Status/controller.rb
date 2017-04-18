@@ -31,7 +31,12 @@ class SkiResortStatus::Controller
     case status
     when "all"
        resort = SkiResortStatus::SkiResort.all[input.to_i - 1]
-       puts "#{resort.name}"
+       puts "-----#{resort.name}-----"
+       puts "Location: #{resort.region}"
+       puts "Status: #{resort.status}"
+       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
+       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
+       puts "Lifts open #{resort.lifts_open}"
     when "open"
       puts "open"
     when "weekend"
