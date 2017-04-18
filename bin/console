@@ -11,4 +11,7 @@ require "Ski_Resort_Status"
 # Pry.start
 
 require "irb"
+def reload!
+  load_all "./lib"
+end
 IRB.start(__FILE__)

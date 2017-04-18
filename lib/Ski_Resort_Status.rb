@@ -5,3 +5,7 @@ module SkiResortStatus
 end
 
 require_relative "./Ski_Resort_Status/cli"
+require "pry"
+require "nokogiri"
+require "open-uri"
+require "require_all"
