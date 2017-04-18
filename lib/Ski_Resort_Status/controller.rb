@@ -20,10 +20,6 @@ class SkiResortStatus::Controller
     SkiResortStatus::SkiResort.all.each.with_index(1) do |attribute, index|
       puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
     end
-    puts "Please select resort you want to learn more about"
-    input = gets.chomp
-    status = "all"
-    resort_details(input,status)
   end
 
   def closed_resorts
@@ -31,7 +27,19 @@ class SkiResortStatus::Controller
     restart?
   end
 
-  def resort_details(input)
-
+  def resort_details(input,status)
+    case status
+    when "all"
+       resort = SkiResortStatus::SkiResort.all[input.to_i - 1]
+       puts "#{resort.name}"
+    when "open"
+      puts "open"
+    when "weekend"
+      puts "weekend"
+    when "all_open"
+      puts "all open"
+    when "closed"
+      puts "closed"
+    end
   end
 end

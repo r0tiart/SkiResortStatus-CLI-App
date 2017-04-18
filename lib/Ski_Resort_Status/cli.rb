@@ -58,6 +58,14 @@ class SkiResortStatus::CLI
       @controller.all_open
     when "4"
       @controller.all_resorts
+
+      puts ""
+      puts "Please select resort you want to learn more about"
+
+      input = gets.chomp
+      status = "all"
+
+      @controller.resort_details(input,status)
     when "5"
       @controller.closed_resorts
     when "main"
