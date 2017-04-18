@@ -5,11 +5,23 @@ CLI - App project will scrape the onthesnow website on the snow reports for US S
 It should also work for the Canadian Ski resorts from the below link for Canadian Ski Resorts
 http://www.onthesnow.com/canada/skireport.html
 
-CLI app will be responsive to the following queries:  
+CLI app:  
 
-"open" - should list all open resorts currently - number of lifts and trails open should also be returned along with base depth/upper depth if known  
-"closed" - should list all closed resorts currently  
-"weekend" - should list all resorts only open on weekends.  
+"***********************************"
+*    Welcome to the Snow Status    *
+"***********************************"
 
-"snowfall" - should show all the snow in the last 24 & 72 hours for all open and weekend resorts    
-"location" - should ask for country and region - and should return all resorts in region with status  
+"Please Choose Region"
+ Regions
+ All
+Sub-Menu
+    1) "List all open resort as of (update date)"
+    2) "List all resorts only open on weekends"
+    3) "List all resorts that are open or open on weekends only"
+    4) "List all resorts including closed resorts"
+    5) "List all closed resorts"
+    Sub-Menu - (resort details)
+    - Resort name
+       -Snow Fall
+       - Base depth / upper depth
+       -Lifts Open
