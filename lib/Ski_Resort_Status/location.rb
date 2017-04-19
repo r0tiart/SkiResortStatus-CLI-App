@@ -6,7 +6,7 @@ class SkiResortStatus::Location
 
   def initialize(location)
     @location = location
-    @region = []
+    @regions = []
   end
 
   def save
@@ -28,13 +28,13 @@ class SkiResortStatus::Location
     end
   end
 
-  def add_location_by_name(region_name)
+  def add_region_by_name(region_name)
     region = SkiResortStatus::Region.find_or_create_by_name(region_name)
     region.location = self
-    @region << region unless @region.include?(region)
+    @regions << region unless @regions.include?(region)
   end
 
   def regions
-    @region.dup.freeze
+    @regions.dup.freeze
   end
 end

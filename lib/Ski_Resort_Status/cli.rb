@@ -10,14 +10,48 @@ class SkiResortStatus::CLI
     puts "***********************************"
     puts ""
 
-    regions
+    location
   end
 
-  def regions
+  def location
+    puts ""
+    @controller.list_locations
+    puts ""
+    puts "Please Choose Location - by number"
+    puts ""
+
+    input = gets.chomp
+    @location_number = input
+
+    while input != "exit"
+      if input.to_i.between?(1,SkiResortStatus::Location.all.length)
+        location_menu(input)
+      else
+        puts "Please re-enter the location number"
+        input = gets.chomp
+        @location_number = input
+      end
+    end
+    puts "Logging out"
+  end
+
+  def location_menu(input)
+
+    puts ""
+    @controller.list_regions(input)
+    puts "Please select a region"
+    puts ""
+
+    regions(input)
+  end
+
+  def regions(input)
+
+    puts ""
+    @controller.list_regions(input)
+    puts ""
     puts "Please Choose Region - by number"
     puts ""
-    puts "1. Regions"
-    puts "2. All"
 
     input = gets.chomp
     @region_number = input

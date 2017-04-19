@@ -1,5 +1,19 @@
 class SkiResortStatus::Controller
 
+
+  def list_locations
+    SkiResortStatus::Location.all.each.with_index(1) do |attribute, index|
+      puts "#{index}. #{attribute.location}"
+    end
+  end
+
+  def list_regions(input)
+    location = SkiResortStatus::Location.all[input.to_i - 1]
+    location.regions.each.with_index(1) do |instance, index|
+      puts "#{index}. #{instance.region}"
+    end
+  end
+
   def open_resorts
     SkiResortStatus::SkiResort.open.each.with_index(1) do |attribute, index|
       puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
