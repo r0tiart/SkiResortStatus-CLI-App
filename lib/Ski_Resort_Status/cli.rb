@@ -68,6 +68,8 @@ class SkiResortStatus::CLI
       end
 
       @controller.resort_details(input,status)
+
+      restart?
     when "2"
       @controller.weekend_resorts
 
@@ -84,6 +86,8 @@ class SkiResortStatus::CLI
       end
 
       @controller.resort_details(input,status)
+
+      restart?
     when "3"
       @controller.all_open
 
@@ -100,6 +104,8 @@ class SkiResortStatus::CLI
       end
 
       @controller.resort_details(input,status)
+
+      restart?
     when "4"
       @controller.all_resorts
 
@@ -116,6 +122,8 @@ class SkiResortStatus::CLI
       end
 
       @controller.resort_details(input,status)
+
+      restart?
     when "5"
       @controller.closed_resorts
 
@@ -132,6 +140,8 @@ class SkiResortStatus::CLI
       end
 
       @controller.resort_details(input,status)
+
+      restart?
     when "main"
       regions
     when "exit"
@@ -178,7 +188,7 @@ class SkiResortStatus::CLI
 
   def restart?
     puts ""
-    puts "Would you like to go back to your specify region menu?"
+    puts "Would you like to go back to the current region menu?"
     puts""
     puts "If not please type exit or main to return to the main menu"
 
