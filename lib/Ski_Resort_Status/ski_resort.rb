@@ -36,11 +36,11 @@ class SkiResortStatus::SkiResort
     @@open.dup.freeze
   end
 
-  def weekend
+  def self.weekend
     @@weekend.dup.freeze
   end
 
-  def all_open
+  def self.all_open
     @@open_plus_weekends.dup.freeze
   end
 

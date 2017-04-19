@@ -1,19 +1,21 @@
 class SkiResortStatus::Controller
 
   def open_resorts
-    puts "all open resorts"
-    restart?
+    SkiResortStatus::SkiResort.open.each.with_index(1) do |attribute, index|
+      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+    end
   end
 
   def weekend_resorts
-    puts "weekend only resorts"
-    restart?
+    SkiResortStatus::SkiResort.weekend.each.with_index(1) do |attribute, index|
+      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+    end
   end
 
   def all_open
-    puts "here are all the open resorts inclusive of weekend only resorts"
-    status = "open"
-    restart?
+    SkiResortStatus::SkiResort.all_open.each.with_index(1) do |attribute, index|
+      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+    end
   end
 
   def all_resorts
@@ -23,28 +25,53 @@ class SkiResortStatus::Controller
   end
 
   def closed_resorts
-    puts "closed resorts"
-    restart?
+    SkiResortStatus::SkiResort.closed.each.with_index(1) do |attribute, index|
+      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+    end
   end
 
   def resort_details(input,status)
     case status
     when "all"
-       resort = SkiResortStatus::SkiResort.all[input.to_i - 1]
-       puts "-----#{resort.name}-----"
-       puts "Location: #{resort.region}"
-       puts "Status: #{resort.status}"
-       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
-       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
-       puts "Lifts open #{resort.lifts_open}"
+      resort = SkiResortStatus::SkiResort.all[input.to_i - 1]
+      puts "-----#{resort.name}-----"
+      puts "Location: #{resort.region}"
+      puts "Status: #{resort.status}"
+      puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
+      puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
+      puts "Lifts open #{resort.lifts_open}"
     when "open"
-      puts "open"
+      resort = SkiResortStatus::SkiResort.open[input.to_i - 1]
+      puts "-----#{resort.name}-----"
+      puts "Location: #{resort.region}"
+      puts "Status: #{resort.status}"
+      puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
+      puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
+      puts "Lifts open #{resort.lifts_open}"
     when "weekend"
-      puts "weekend"
+      resort = SkiResortStatus::SkiResort.weekend[input.to_i - 1]
+      puts "-----#{resort.name}-----"
+      puts "Location: #{resort.region}"
+      puts "Status: #{resort.status}"
+      puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
+      puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
+      puts "Lifts open #{resort.lifts_open}"
     when "all_open"
-      puts "all open"
+      resort = SkiResortStatus::SkiResort.all_open[input.to_i - 1]
+      puts "-----#{resort.name}-----"
+      puts "Location: #{resort.region}"
+      puts "Status: #{resort.status}"
+      puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
+      puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
+      puts "Lifts open #{resort.lifts_open}"
     when "closed"
-      puts "closed"
+      resort = SkiResortStatus::SkiResort.closed[input.to_i - 1]
+      puts "-----#{resort.name}-----"
+      puts "Location: #{resort.region}"
+      puts "Status: #{resort.status}"
+      puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
+      puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
+      puts "Lifts open #{resort.lifts_open}"
     end
   end
 end
