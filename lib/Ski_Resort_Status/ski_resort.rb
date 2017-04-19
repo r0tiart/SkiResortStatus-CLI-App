@@ -9,6 +9,18 @@ class SkiResortStatus::SkiResort
 
   def initialize(name)
     @name = name
+    #resorts have 1 region
+  end
+
+  def self.find_or_create_by_name(name)
+    resort = self.all.find { |instance| instance.name == name}
+    if resort == nil
+      new_resort = self.new(name)
+      new_resort.save
+      new_resort
+    else
+      resort
+    end
   end
 
   def save
