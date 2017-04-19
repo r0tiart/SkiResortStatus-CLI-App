@@ -4,6 +4,7 @@ module SkiResortStatus
   # Your code goes here...
 end
 
+require_relative "./Ski_Resort_Status/location"
 require_relative "./Ski_Resort_Status/region"
 require_relative "./Ski_Resort_Status/ski_resort"
 require_relative "./Ski_Resort_Status/controller"
