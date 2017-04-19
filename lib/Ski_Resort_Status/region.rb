@@ -29,15 +29,18 @@ class SkiResortStatus::Region
   end
 
   def self.find_or_create_by_name(name)
-    region = self.all.find { |instance| instance.region == name}
-    if region == nil
-      new_region = self.new(name)
-      new_region.save
-      new_region
+    if self.find_by_name(name) == nil
+      self.create_by_name(name)
     else
-      region
+      self.find_by_name(name)
     end
   end
 
+  def self.find_by_name(name)
+    self.all.find { |instance| instance.region == name}
+  end
 
+  def self.create_by_name(name)
+    self.new(name).tap { |region| region.save}
+  end
 end

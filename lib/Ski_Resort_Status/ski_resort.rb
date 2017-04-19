@@ -13,14 +13,19 @@ class SkiResortStatus::SkiResort
   end
 
   def self.find_or_create_by_name(name)
-    resort = self.all.find { |instance| instance.name == name}
-    if resort == nil
-      new_resort = self.new(name)
-      new_resort.save
-      new_resort
+    if self.find_by_name(name) == nil
+      self.create_by_name(name)
     else
-      resort
+      self.find_by_name(name)
     end
+  end
+
+  def self.find_by_name(name)
+    self.all.find { |instance| instance.name == name}
+  end
+
+  def self.create_by_name(name)
+    self.new(name).tap { |resort| resort.save}
   end
 
   def save
