@@ -18,7 +18,7 @@ class SkiResortStatus::Location
   end
 
   def self.find_or_create_by_name(name)
-    location = self.all.find { |instance| instance.name == name}
+    location = self.all.find { |instance| instance.location == name}
     if location == nil
       new_location = self.new(name)
       new_location.save
