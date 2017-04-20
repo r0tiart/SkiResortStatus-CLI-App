@@ -35,4 +35,20 @@ rows.shift(2)
 rows.pop
 rows - array or nokogiri rows after first 2 rows
 
-build class that instantiates resorts
+name:
+name = name = table_row.css(".name").text
+
+depth:
+depth = table_row.css(".rMid.c").css("b").text.split(" - ")
+
+for status:
+status = "open" if row.at_css(".openstate.stateD1") != nil
+
+24hr snow:
+(".rLeft.b").css("b").first.text
+
+lifts_open:
+(".rMid")[2].text
+
+region:
+css(".rRegion").css("a").attr("title").value
