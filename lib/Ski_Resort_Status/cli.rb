@@ -87,11 +87,43 @@ class SkiResortStatus::CLI
       puts "#{index}. #{resort.name}, #{resort.region}, #{resort.status}"
       puts ""
     end
-    restart?
+
+    puts ""
+    puts "Please choose the resort you want to learn more about"
+    puts ""
+
+    input = gets.chomp
+
+    case input
+    when input.to_i.between?(1,SkiResortStatus::SkiResort.all.length)
+      resort_details(input)
+    when "region"
+      region_menu(@region_number)
+    when "exit"
+      puts "Logging out"
+    when "main"
+      regions
+    else
+      puts "Please type exit or main to continue"
+      input = gets.chomp
+    end
   end
 
   def closed_resorts
     puts "closed resorts"
+    restart?
+  end
+
+  def resort_details(input)
+    resort = SkiResortStatus::SkiResort.all[input.to_i-1]
+    puts ""
+    puts "------#{resort.name}------"
+    puts "Location: #{resort.region}"
+    puts "Status: #{resort.status}"
+    puts "SnowFall 24hrs: #{resort.new_snow_24} / SnowFall 72hrs: #{resort.new_snow_72}"
+    puts "Base/Upper Depths: #{resort.base_depth}/#{resort.upper_depth}"
+    puts "Lifts Open #{resort.lifts_open}"
+
     restart?
   end
 
@@ -115,5 +147,4 @@ class SkiResortStatus::CLI
       input = gets.chomp
     end
   end
-
 end
