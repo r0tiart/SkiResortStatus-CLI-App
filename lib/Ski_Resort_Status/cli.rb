@@ -33,14 +33,17 @@ class SkiResortStatus::CLI
         self.current_location = controller.current_location(input)
 
         self.regions_menu(current_location) #calls to list the regions by selected location
-        break
+        input = "exit"
+      elsif input == "exit"
+        input = "exit"
       else
         puts "Please re-enter the location number"
         input = gets.strip
         # location_number = input #location in the @@all array for location class
       end
     end
-    self.exit
+    puts ""
+    puts "logging out"
   end
 
   def regions_menu(region) #lists regions - and ask to choose specific region
@@ -62,18 +65,17 @@ class SkiResortStatus::CLI
         self.current_region = controller.current_region(current_location, input) #pulls the instance of the region
 
         self.resort_menu(current_region)
-        break
+        input = "exit"
       elsif input == "main"
         self.main
-        break
+        input = "exit"
+      elsif input == "exit"
+        input = "exit"
       else
         puts "Please re-enter the location number"
         input = gets.strip
       end
     end
-    puts input
-
-    self.exit
   end
 
   def resort_menu(region)
@@ -86,142 +88,153 @@ class SkiResortStatus::CLI
     puts "  3) List all resorts that are open or open on weekends only"
     puts "  4) List all resorts including closed resorts"
     puts "  5) List all closed resorts"
+    puts "You can enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
     puts ""
 
     input = gets.strip
-    case input
-    when "1"
-      @controller.open_resorts
+    while input != "exit"
+      case input
+      when "1"
+        @controller.open_resorts
 
-      puts ""
-      puts "Please select resort you want to learn more about"
-      puts ""
+        puts ""
+        puts "Please select resort you want to learn more about"
+        puts ""
 
-      input = gets.strip
-      status = "open"
+        input = gets.strip
+        status = "open"
 
-      until input.to_i.between?(1,current_region.resorts.length)
-        puts "Invalid entry, please enter the resort number you wish to learn more about"
+        until input.to_i.between?(1,current_region.resorts.length)
+          puts "Invalid entry, please enter the resort number you wish to learn more about"
+
+          input = gets.strip
+        end
+
+        self.controller.resort_details(input,status)
+        input = "exit"
+        restart?
+      when "2"
+        self.controller.weekend_resorts
+
+        puts ""
+        puts "Please select resort you want to learn more about"
+
+        input = gets.strip
+        status = "weekend"
+
+        until input.to_i > 0
+          puts "Invalid entry, please enter the resort number you wish to learn more about"
+
+          input = gets.strip
+        end
+
+        self.controller.resort_details(input,status)
+        input = "exit"
+        restart?
+      when "3"
+        self.controller.all_open
+
+        puts ""
+        puts "Please select resort you want to learn more about"
+
+        input = gets.strip
+        status = "all_open"
+
+        until input.to_i > 0
+          puts "Invalid entry, please enter the resort number you wish to learn more about"
+
+          input = gets.strip
+        end
+
+        self.controller.resort_details(input,status)
+        input = "exit"
+        restart?
+      when "4"
+        self.controller.all_resorts
+
+        puts ""
+        puts "Please select resort you want to learn more about"
+
+        input = gets.strip
+        status = "all"
+
+        until input.to_i > 0
+          puts "Invalid entry, please enter the resort number you wish to learn more about"
+
+          input = gets.strip
+        end
+
+        self.controller.resort_details(input,status)
+        input = "exit"
+        restart?
+      when "5"
+        self.controller.closed_resorts
+
+        puts ""
+        puts "Please select resort you want to learn more about"
+
+        input = gets.strip
+        status = "closed"
+
+        until input.to_i > 0
+          puts "Invalid entry, please enter the resort number you wish to learn more about"
+
+          input = gets.strip
+        end
+
+        self.controller.resort_details(input,status)
+        input = "exit"
+        self.restart?
+      when "main"
+        input = "exit"
+        self.main
+      when "back"
+        input = "exit"
+        self.regions_menu(current_location)
+      when "exit"
+        input = "exit"
+      else
+        "Please re-enter input"
 
         input = gets.strip
       end
-
-      self.controller.resort_details(input,status)
-
-      restart?
-    when "2"
-      self.controller.weekend_resorts
-
-      puts ""
-      puts "Please select resort you want to learn more about"
-
-      input = gets.strip
-      status = "weekend"
-
-      until input.to_i > 0
-        puts "Invalid entry, please enter the resort number you wish to learn more about"
-
-        input = gets.strip
-      end
-
-      self.controller.resort_details(input,status)
-
-      restart?
-    when "3"
-      self.controller.all_open
-
-      puts ""
-      puts "Please select resort you want to learn more about"
-
-      input = gets.strip
-      status = "all_open"
-
-      until input.to_i > 0
-        puts "Invalid entry, please enter the resort number you wish to learn more about"
-
-        input = gets.strip
-      end
-
-      self.controller.resort_details(input,status)
-
-      restart?
-    when "4"
-      self.controller.all_resorts
-
-      puts ""
-      puts "Please select resort you want to learn more about"
-
-      input = gets.strip
-      status = "all"
-
-      until input.to_i > 0
-        puts "Invalid entry, please enter the resort number you wish to learn more about"
-
-        input = gets.strip
-      end
-
-      self.controller.resort_details(input,status)
-
-      restart?
-    when "5"
-      self.controller.closed_resorts
-
-      puts ""
-      puts "Please select resort you want to learn more about"
-
-      input = gets.strip
-      status = "closed"
-
-      until input.to_i > 0
-        puts "Invalid entry, please enter the resort number you wish to learn more about"
-
-        input = gets.strip
-      end
-
-      self.controller.resort_details(input,status)
-
-      self.restart?
-
-    when "main"
-      self.main
-    when "regions"
-      self.regions_menu(current_location)
-    when "back"
-      self.resort_menu(current_region)
-    when "exit"
-      self.exit
-    else
-      "Please re-enter input"
-
-      input = gets.strip
     end
   end
 
   def restart?
     puts ""
-    puts "Would you like to go back to the current region menu?"
+    puts "Input 'back' to go back to the previous menu"
+    puts "Input 'region' to returns to the regions list"
     puts""
-    puts "If not please type exit or main to return to the main menu"
+    puts "You can also type 'exit' to log out or main to return to the main menu"
 
     input = gets.strip
-
-    case input
-    when "yes"
-      self.regions_menu(current_region)
-    when "exit"
-      puts "Logging out"
-    when "main"
-      self.main
-    else
-      puts "Please type yes to return the specified region"
-      puts "Type exit to log out or main to continue to the main menu"
-      input = gets.strip
+    while input != "exit"
+      case input
+      when "region"
+        input = "exit"
+        self.regions_menu(current_location)
+      when "back"
+        input = "exit"
+        self.resort_menu(current_region)
+      when "exit"
+        input = "exit"
+      when "main"
+        input = "exit"
+        self.main
+      else
+        puts "Invalid entry, please enter:"
+        puts "'back' to go back to the previous menu"
+        puts "'region' to return to the regions list"
+        puts "'main' to return to the main menu"
+        puts "'exit' to log off"
+        input = gets.strip
+      end
     end
   end
 
-  def exit
-    puts ""
-    puts "logging out"
-  end
+  # def exit
+  #   return "exit"
+  # end
 
 end
