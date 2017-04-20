@@ -17,14 +17,21 @@ class SkiResortStatus::Scraper
     @rows
   end
 
+  binding.pry
   def create_from_scrape
     @rows.each do |table_row|
       name = table_row.css(".name").text
       depth = table_row.css(".rMid.c").css("b").text.split(" - ")
       base_depth = depth.first
       upper_depth = depth.last
-      # new_snow_24 = table_row.css(".rLeft.b").css("b").first.text
-      new_snow_72 = table_row.css(".rLeft.b").css("b").last.text
+
+      if table.row.css(".rLeft.b").css("b").first == nil
+        new_snow_24 = "N/A"
+        new_snow_72 = "N/A"
+      else
+        new_snow_24 = table_row.css(".rLeft.b").css("b").first.text
+        new_snow_72 = table_row.css(".rLeft.b").css("b").last.text
+      end
       lifts_open = table_row.css(".rMid")[2].text
       region = table_row.css(".rRegion").css("a").attr("title").value
 
