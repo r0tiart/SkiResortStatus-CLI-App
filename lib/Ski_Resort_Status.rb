@@ -9,6 +9,7 @@ require_relative "./Ski_Resort_Status/region"
 require_relative "./Ski_Resort_Status/ski_resort"
 require_relative "./Ski_Resort_Status/controller"
 require_relative "./Ski_Resort_Status/cli"
+require_relative "./Ski_Resort_Status/scraper"
 
 
 require "pry"

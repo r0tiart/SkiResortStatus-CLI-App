@@ -233,8 +233,4 @@ class SkiResortStatus::CLI
     end
   end
 
-  # def exit
-  #   return "exit"
-  # end
-
 end
