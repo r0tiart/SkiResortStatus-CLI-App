@@ -14,19 +14,14 @@ class SkiResortStatus::Controller
     end
   end
 
-  def current_region(location,region_number)
-    location = SkiResortStatus::Location.all[input.to_i - 1]
-    region = location.regions[region_number.to_i - 1 ]
+  def current_region(location, number)
+    region = location.regions[number.to_i - 1 ]
     region
   end
 
   def current_location(location_number)
     location = SkiResortStatus::Location.all[location_number.to_i - 1]
     location
-  end
-
-  def list_resorts(region, input)
-
   end
 
   def open_resorts
