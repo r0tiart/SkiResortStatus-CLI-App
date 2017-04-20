@@ -42,4 +42,9 @@ class SkiResortStatus::Location
   def regions
     @regions.dup.freeze
   end
+
+  def add_region(region)
+    @regions << region unless regions.include?(region)
+    region.location = self unless region.location == self
+  end
 end

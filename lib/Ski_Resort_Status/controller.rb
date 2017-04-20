@@ -7,8 +7,7 @@ class SkiResortStatus::Controller
     end
   end
 
-  def list_regions(input)
-    location = SkiResortStatus::Location.all[input.to_i - 1]
+  def list_regions(location)
     location.regions.each.with_index(1) do |instance, index|
       puts "#{index}. #{instance.region}"
     end

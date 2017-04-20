@@ -61,4 +61,9 @@ class SkiResortStatus::SkiResort
     @@open_plus_weekends.dup.freeze
   end
 
+  def region=(name)
+    @region = name
+    name.add_resort(self) unless name.resorts.include?(self)
+  end
+
 end

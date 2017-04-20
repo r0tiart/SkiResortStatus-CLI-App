@@ -43,4 +43,14 @@ class SkiResortStatus::Region
   def self.create_by_name(name)
     self.new(name).tap { |region| region.save}
   end
+
+  def add_resort(resort)
+    @resorts << resort unless @resorts.include?(resort)
+    resort.region = self unless resort.region == self
+  end
+
+  def location=(location)
+    @location = location
+    location.add_region(self) unless location.regions.include?(self)
+  end
 end
