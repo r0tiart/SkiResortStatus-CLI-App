@@ -4,7 +4,7 @@ class SkiResortStatus::CLI
     @controller = SkiResortStatus::Controller.new
   end
 
-  def call
+  def call # welcome screen
     puts "***********************************"
     puts "*    Welcome to the Snow Status    *"
     puts "***********************************"
@@ -13,7 +13,7 @@ class SkiResortStatus::CLI
     location
   end
 
-  def location
+  def location #main menu - list locations and choose location
     puts ""
     @controller.list_locations
     puts ""
@@ -25,53 +25,41 @@ class SkiResortStatus::CLI
 
     while input != "exit"
       if input.to_i.between?(1,SkiResortStatus::Location.all.length)
-        location_menu(input)
+        regions_menu(input) #calls to list the regions by selected location
       else
         puts "Please re-enter the location number"
         input = gets.chomp
-        @location_number = input
+        @location_number = input #location in the @@all array for location class
       end
     end
     puts "Logging out"
   end
 
-  def location_menu(input)
+  def regions_menu(location_number) #lists regions - and ask to choose specific region
 
     puts ""
-    @controller.list_regions(input)
-    puts "Please select a region"
-    puts ""
-
-    regions(input)
-  end
-
-  def regions(input)
-
-    puts ""
-    @controller.list_regions(input)
+    @controller.list_regions(location_number)
     puts ""
     puts "Please Choose Region - by number"
     puts ""
 
     input = gets.chomp
-    @region_number = input
+    @region_number = input #choice made so i can find the instance of the region
+    @region_instance = SkiResortStatus::Controller(location_number, input) #pulls the instance of the region
 
-    case input
-    when "1"
-      region_menu(input)
-    when "2"
-      region_menu(input)
-    when "exit"
-      puts "Logging out"
-    else
-      puts "Please re-enter the region number"
-      input = gets.chomp
-      @region_number = input
+    while input != "exit"
+      if input.to_i.between?(1,SkiResortStatus::Location.all[@location_number.to_i - 1].regions)
+        resort_menu(region, input)
+      else
+        puts "Please re-enter the location number"
+        input = gets.chomp
+        @region_number = input
+      end
     end
   end
 
-  def region_menu(region_number)
-    region = region_number.to_i - 1
+  def resort_menu(region)
+    region = [region_number.to_i - 1]
 
     puts "--------#{region}--------"
     puts ""
@@ -234,7 +222,7 @@ class SkiResortStatus::CLI
     when "exit"
       puts "Logging out"
     when "main"
-      regions
+      location
     else
       puts "Please type yes to return the specified region"
       puts "Type exit to log out or main to continue to the main menu"
