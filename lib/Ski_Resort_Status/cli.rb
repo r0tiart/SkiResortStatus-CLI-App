@@ -36,13 +36,13 @@ class SkiResortStatus::CLI
         self.current_location = controller.current_location(input)
 
         self.regions_menu(current_location) #calls to list the regions by selected location
+
         input = "exit"
       elsif input == "exit"
         input = "exit"
       else
         puts "Please re-enter the location number"
         input = gets.strip
-        # location_number = input #location in the @@all array for location class
       end
     end
     puts ""
@@ -64,14 +64,14 @@ class SkiResortStatus::CLI
       input = gets.strip
 
       if input.to_i.between?(1,current_location.regions.length)
+        input = "exit"
 
         self.current_region = controller.current_region(current_location, input) #pulls the instance of the region
 
         self.resort_menu(current_region)
-        input = "exit"
       elsif input == "main"
-        self.main
         input = "exit"
+        self.main
       elsif input == "exit"
         input = "exit"
       else
@@ -105,6 +105,8 @@ class SkiResortStatus::CLI
 
         if controller.open.length > 0
           until new_input.to_i.between?(1,controller.open.length)
+            input = "exit"
+
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
             new_input = gets.strip
@@ -112,21 +114,20 @@ class SkiResortStatus::CLI
 
           self.controller.resort_details(new_input,status)
 
-          input = "exit"
           self.restart?
         else
           until new_input == "exit" || new_input == "back" || new_input == main
             if new_input == "exit"
-              new_input == "exit"
+              new_input = "exit"
             elsif new_input == "back"
-              new_input == "back"
+              new_input = "back"
             elsif new_input == "main"
-              new_input == "main"
+              new_input = "main"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
               puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
 
-              new_input == gets.strip
+              new_input = gets.strip
             end
           end
           input = new_input
@@ -139,6 +140,8 @@ class SkiResortStatus::CLI
 
         if controller.weekend.length > 0
           until new_input.to_i.between?(1,controller.weekend.length)
+            input = "exit"
+
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
             new_input = gets.strip
@@ -146,21 +149,20 @@ class SkiResortStatus::CLI
 
           self.controller.resort_details(new_input,status)
 
-          input = "exit"
           self.restart?
         else
           until new_input == "exit" || new_input == "back" || new_input == main
             if new_input == "exit"
-              new_input == "exit"
+              new_input = "exit"
             elsif new_input == "back"
-              new_input == "back"
+              new_input = "back"
             elsif new_input == "main"
-              new_input == "main"
+              new_input = "main"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
               puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
 
-              new_input == gets.strip
+              new_input = gets.strip
             end
           end
           input = new_input
@@ -171,8 +173,10 @@ class SkiResortStatus::CLI
         input = gets.strip
         status = "all_open"
 
-        if controller.all_open.length > 0
-          until new_input.to_i.between?(1,controller.all_open.length)
+        if controller.every_open.length > 0
+          until new_input.to_i.between?(1,controller.every_open.length)
+            input = "exit"
+
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
             new_input = gets.strip
@@ -185,16 +189,16 @@ class SkiResortStatus::CLI
         else
           until new_input == "exit" || new_input == "back" || new_input == main
             if new_input == "exit"
-              new_input == "exit"
+              new_input = "exit"
             elsif new_input == "back"
-              new_input == "back"
+              new_input = "back"
             elsif new_input == "main"
-              new_input == "main"
+              new_input = "main"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
               puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
 
-              new_input == gets.strip
+              new_input = gets.strip
             end
           end
           input = new_input
@@ -205,7 +209,9 @@ class SkiResortStatus::CLI
         input = gets.strip
         status = "all"
 
-        until input.to_i.between(1,controller.resorts.length)
+        until input.to_i.between?(1,controller.resorts.length)
+          input = "exit"
+
           puts "Invalid entry, please enter the resort number you wish to learn more about"
 
           input = gets.strip
@@ -221,6 +227,8 @@ class SkiResortStatus::CLI
         status = "closed"
 
         if controller.closed.length > 0
+          input = "exit"
+
           until new_input.to_i.between?(1,controller.closed.length)
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
@@ -234,16 +242,16 @@ class SkiResortStatus::CLI
         else
           until new_input == "exit" || new_input == "back" || new_input == main
             if new_input == "exit"
-              new_input == "exit"
+              new_input = "exit"
             elsif new_input == "back"
-              new_input == "back"
+              new_input = "back"
             elsif new_input == "main"
-              new_input == "main"
+              new_input = "main"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
               puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
 
-              new_input == gets.strip
+              new_input = gets.strip
             end
           end
           input = new_input

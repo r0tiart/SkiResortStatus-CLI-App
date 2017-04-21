@@ -1,6 +1,6 @@
 class SkiResortStatus::Controller
 
-  attr_reader :resorts, :open, :weekend, :closed, :all_open
+  attr_reader :resorts, :open, :weekend, :closed, :every_open
 
   def resorts
     @resorts.dup.freeze
@@ -18,8 +18,8 @@ class SkiResortStatus::Controller
     @closed.dup.freeze
   end
 
-  def all_open
-    @all_open.dup.freeze
+  def every_open
+    @every_open.dup.freeze
   end
 
   def scrape_website
@@ -97,15 +97,15 @@ class SkiResortStatus::Controller
   end
 
   def all_open(current_region)
-    @all_open = self.list_resorts(current_region).select {|resort| resort.status != "closed"}
+    @every_open = self.list_resorts(current_region).select {|resort| resort.status != "closed"}
 
-    if @all_open.length == 0
+    if @every_open.length == 0
       puts ""
       puts "No resorts are open in the sepcified region"
       puts " "
       puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
     else
-      @all_open.each.with_index(1) do |attribute, index|
+      @every_open.each.with_index(1) do |attribute, index|
         puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
       end
 
@@ -117,7 +117,7 @@ class SkiResortStatus::Controller
 
   def all_resorts(current_region)
 
-    self.list_resorts.each.with_index(1) do |attribute, index|
+    self.list_resorts(current_region).each.with_index(1) do |attribute, index|
       puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
     end
 
