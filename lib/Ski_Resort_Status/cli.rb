@@ -49,6 +49,8 @@ class SkiResortStatus::CLI
     puts ""
     puts "logging out"
 
+    exit
+
   end
 
   def regions_menu(region) #lists regions - and ask to choose specific region
