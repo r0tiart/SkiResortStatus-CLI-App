@@ -17,7 +17,6 @@ class SkiResortStatus::Scraper
     @rows
   end
 
-  binding.pry
   def create_from_scrape
     @rows.each do |table_row|
       name = table_row.css(".name").text
@@ -25,7 +24,7 @@ class SkiResortStatus::Scraper
       base_depth = depth.first
       upper_depth = depth.last
 
-      if table.row.css(".rLeft.b").css("b").first == nil
+      if table_row.css(".rLeft.b").css("b").first == nil
         new_snow_24 = "N/A"
         new_snow_72 = "N/A"
       else
@@ -48,8 +47,9 @@ class SkiResortStatus::Scraper
       new_resort.base_depth = base_depth
       new_resort.upper_depth = upper_depth
       new_resort.lifts_open = lifts_open
-      # new_resort.new_snow_24 = new_snow_24
+      new_resort.new_snow_24 = new_snow_24
       new_resort.new_snow_72 = new_snow_72
+      new_resort.status = status
     end
 
   end
