@@ -9,9 +9,13 @@ require_relative "./Ski_Resort_Status/region"
 require_relative "./Ski_Resort_Status/ski_resort"
 require_relative "./Ski_Resort_Status/controller"
 require_relative "./Ski_Resort_Status/cli"
+<<<<<<< HEAD
 require_relative "./Ski_Resort_Status/scraper"
 
 
+=======
+require_relative "./Ski_Resort_Status/ski_resort"
+>>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
 require "pry"
 require "nokogiri"
 require "open-uri"

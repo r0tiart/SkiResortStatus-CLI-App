@@ -113,6 +113,7 @@ class SkiResortStatus::CLI
 
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
+<<<<<<< HEAD
             new_input = gets.strip
           end
 
@@ -215,6 +216,34 @@ class SkiResortStatus::CLI
         end
       when "4"
         self.controller.all_resorts(region)
+=======
+  def all_resorts
+    SkiResortStatus::SkiResort.all.each.with_index(1) do |resort, index|
+      puts "#{index}. #{resort.name}, #{resort.region}, #{resort.status}"
+      puts ""
+    end
+
+    puts ""
+    puts "Please choose the resort you want to learn more about"
+    puts ""
+
+    input = gets.chomp
+
+    case input
+    when input.to_i.between?(1,SkiResortStatus::SkiResort.all.length)
+      resort_details(input)
+    when "region"
+      region_menu(@region_number)
+    when "exit"
+      puts "Logging out"
+    when "main"
+      regions
+    else
+      puts "Please type exit or main to continue"
+      input = gets.chomp
+    end
+  end
+>>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
 
         new_input = gets.strip
         status = "all"
@@ -285,6 +314,19 @@ class SkiResortStatus::CLI
     end
   end
 
+  def resort_details(input)
+    resort = SkiResortStatus::SkiResort.all[input.to_i-1]
+    puts ""
+    puts "------#{resort.name}------"
+    puts "Location: #{resort.region}"
+    puts "Status: #{resort.status}"
+    puts "SnowFall 24hrs: #{resort.new_snow_24} / SnowFall 72hrs: #{resort.new_snow_72}"
+    puts "Base/Upper Depths: #{resort.base_depth}/#{resort.upper_depth}"
+    puts "Lifts Open #{resort.lifts_open}"
+
+    restart?
+  end
+
   def restart?
     puts ""
     puts "Input 'back' to go back to the previous menu"
@@ -318,5 +360,4 @@ class SkiResortStatus::CLI
       end
     end
   end
-
 end

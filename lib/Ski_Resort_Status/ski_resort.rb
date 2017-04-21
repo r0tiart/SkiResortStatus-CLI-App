@@ -2,6 +2,7 @@ class SkiResortStatus::SkiResort
   attr_accessor :name, :region, :base_depth, :upper_depth, :lifts_open, :new_snow_24, :new_snow_72, :status
 
   @@all = []
+<<<<<<< HEAD
   @@closed = []
   @@open = []
   @@weekend =[]
@@ -26,10 +27,15 @@ class SkiResortStatus::SkiResort
 
   def self.create_by_name(name)
     self.new(name).tap { |resort| resort.save}
+=======
+  def initialize(name)
+    @name = name
+>>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
   end
 
   def save
     @@all << self
+<<<<<<< HEAD
     if self.status == "open"
       @@open << self
       @@open_plus_weekends << self
@@ -39,12 +45,15 @@ class SkiResortStatus::SkiResort
       @@weekend << self
       @@open_plus_weekends << self
     end
+=======
+>>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
   end
 
   def self.all
     @@all.dup.freeze
   end
 
+<<<<<<< HEAD
   def self.closed
     @@closed.dup.freeze
   end
@@ -66,4 +75,6 @@ class SkiResortStatus::SkiResort
     name.add_resort(self) unless name.resorts.include?(self)
   end
 
+=======
+>>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
 end

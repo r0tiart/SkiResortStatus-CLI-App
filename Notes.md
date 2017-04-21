@@ -35,6 +35,7 @@ rows.shift(2)
 rows.pop
 rows - array or nokogiri rows after first 2 rows
 
+<<<<<<< HEAD
 name:
 name = name = table_row.css(".name").text
 
@@ -52,3 +53,6 @@ lifts_open:
 
 region:
 css(".rRegion").css("a").attr("title").value
+=======
+build class that instantiates resorts
+>>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
