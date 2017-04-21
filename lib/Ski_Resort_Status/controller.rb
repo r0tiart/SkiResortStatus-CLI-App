@@ -3,23 +3,23 @@ class SkiResortStatus::Controller
   attr_reader :resorts, :open, :weekend, :closed, :every_open
 
   def resorts
-    @resorts.dup.freeze
+    @resorts.dup.freeze.sort
   end
 
   def open
-    @open.dup.freeze
+    @open.dup.freeze.sort
   end
 
   def weekend
-    @weekend.dup.freeze
+    @weekend.dup.freeze.sort
   end
 
   def closed
-    @closed.dup.freeze
+    @closed.dup.freeze.sort
   end
 
   def every_open
-    @every_open.dup.freeze
+    @every_open.dup.freeze.sort
   end
 
   def scrape_website

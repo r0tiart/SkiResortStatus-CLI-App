@@ -40,7 +40,7 @@ class SkiResortStatus::Scraper
         status = "open"
       elsif table_row.at_css(".openstate.stateD4") != nil
         status = "weekend"
-      elsif table_row.at_css(".openstate.stateD6") != nil
+      elsif table_row.at_css(".openstate.stateD2") != nil
         status = "closed"
       end
 
