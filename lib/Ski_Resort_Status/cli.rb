@@ -120,16 +120,18 @@ class SkiResortStatus::CLI
 
           self.restart?
         else
-          until new_input == "exit" || new_input == "back" || new_input == main
+          until new_input == "exit" || new_input == "back" || new_input == "main" || new_input == "regions"
             if new_input == "exit"
               new_input = "exit"
             elsif new_input == "back"
               new_input = "back"
             elsif new_input == "main"
               new_input = "main"
+            elsif new_input == "regions"
+              new_input = "regions"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
-              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+              puts "'exit' to log off, 'main' to go back to main menu, 'back' to return to previous menu or 'regions' to go back to the regions menu"
 
               new_input = gets.strip
             end
@@ -155,16 +157,18 @@ class SkiResortStatus::CLI
 
           self.restart?
         else
-          until new_input == "exit" || new_input == "back" || new_input == main
+          until new_input == "exit" || new_input == "back" || new_input == "main" || new_input == "regions"
             if new_input == "exit"
               new_input = "exit"
             elsif new_input == "back"
               new_input = "back"
             elsif new_input == "main"
               new_input = "main"
+            elsif new_input == "regions"
+              new_input = "regions"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
-              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+              puts "'exit' to log off, 'main' to go back to main menu, 'back' to return to previous menu or 'regions' to go back to the regions menu"
 
               new_input = gets.strip
             end
@@ -191,16 +195,18 @@ class SkiResortStatus::CLI
           resort_input = "exit"
           self.restart?
         else
-          until new_input == "exit" || new_input == "back" || new_input == main
+          until new_input == "exit" || new_input == "back" || new_input == "main" || new_input == "regions"
             if new_input == "exit"
               new_input = "exit"
             elsif new_input == "back"
               new_input = "back"
             elsif new_input == "main"
               new_input = "main"
+            elsif new_input == "regions"
+              new_input = "regions"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
-              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+              puts "'exit' to log off, 'main' to go back to main menu, 'back' to return to previous menu or 'regions' to go back to the regions menu"
 
               new_input = gets.strip
             end
@@ -242,16 +248,18 @@ class SkiResortStatus::CLI
           resort_input = "exit"
           self.restart?
         else
-          until new_input == "exit" || new_input == "back" || new_input == main
+          until new_input == "exit" || new_input == "back" || new_input == "main" || new_input == "regions"
             if new_input == "exit"
               new_input = "exit"
             elsif new_input == "back"
               new_input = "back"
             elsif new_input == "main"
               new_input = "main"
+            elsif new_input == "regions"
+              new_input = "regions"
             else
               puts "Invalid entry, there are no open resorts - you can type:"
-              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+              puts "'exit' to log off, 'main' to go back to main menu, 'back' to return to previous menu or 'regions' to go to the regions menu"
 
               new_input = gets.strip
             end
@@ -262,6 +270,9 @@ class SkiResortStatus::CLI
         resort_input = "exit"
         self.main
       when "back"
+        resort_input = "exit"
+        self.resort_menu(current_region)
+      when "regions"
         resort_input = "exit"
         self.regions_menu(current_location)
       when "exit"
