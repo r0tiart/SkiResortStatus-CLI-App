@@ -15,7 +15,7 @@ class SkiResortStatus::CLI
     puts ""
     puts "Loading resort details"
     @controller.scrape_website
-    main
+    self.main
   end
 
   def main #main menu - list locations and choose location
@@ -35,17 +35,16 @@ class SkiResortStatus::CLI
       if main_input.to_i.between?(1,SkiResortStatus::Location.all.length)
         self.current_location = controller.current_location(main_input)
 
-        main_input = "exit"
-
         self.regions_menu(current_location) #calls to list the regions by selected location
-        break
+
+        main_input = "exit"
       elsif main_input == "exit"
         main_input = "exit"
-        break
       else
         puts "Please re-enter the location number"
         main_input = gets.strip
       end
+
     end
     puts ""
     puts "logging out"
@@ -58,7 +57,7 @@ class SkiResortStatus::CLI
     self.controller.list_regions(region)
     puts ""
 
-    input = nil
+    region_input = nil
     puts "Please Choose Region - by number"
     puts ""
 
@@ -69,7 +68,7 @@ class SkiResortStatus::CLI
       if region_input.to_i.between?(1,current_location.regions.length)
         region_input = "exit"
 
-        self.current_region = controller.current_region(current_location, input) #pulls the instance of the region
+        self.current_region = controller.current_region(current_location, region_input) #pulls the instance of the region
 
         self.resort_menu(current_region)
       elsif region_input == "main"
@@ -279,9 +278,11 @@ class SkiResortStatus::CLI
     puts "Input 'region' to returns to the regions list"
     puts""
     puts "You can also type 'exit' to log out or main to return to the main menu"
+    restart_input = nil
 
-    restart_input = gets.strip
     while restart_input != "exit"
+      restart_input = gets.strip
+
       case restart_input
       when "region"
         restart_input = "exit"
