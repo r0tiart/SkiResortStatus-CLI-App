@@ -3,6 +3,7 @@ require "nokogiri"
 require "open-uri"
 class SkiResortStatus::Scraper
   attr_accessor :url
+  attr_reader :location
 
   def initialize(url)
     @url = url
@@ -10,6 +11,7 @@ class SkiResortStatus::Scraper
 
   def scrape
     doc = Nokogiri::HTML(open(self.url))
+    @location = doc.css(".resort_name").text
     @rows = doc.css("tr")
     @rows.pop
     @rows.shift
@@ -44,6 +46,7 @@ class SkiResortStatus::Scraper
 
       new_resort = SkiResortStatus::SkiResort.find_or_create_by_name(name)
       new_resort.region = SkiResortStatus::Region.find_or_create_by_name(region)
+      new_resort.region.location = SkiResortStatus::Location.find_or_create_by_name(@location)
       new_resort.base_depth = base_depth
       new_resort.upper_depth = upper_depth
       new_resort.lifts_open = lifts_open
