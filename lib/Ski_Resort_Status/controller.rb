@@ -2,6 +2,26 @@ class SkiResortStatus::Controller
 
   attr_reader :resorts, :open, :weekend, :closed, :all_open
 
+  def resorts
+    @resorts.dup.freeze
+  end
+
+  def open
+    @open.dup.freeze
+  end
+
+  def weekend
+    @weekend.dup.freeze
+  end
+
+  def closed
+    @closed.dup.freeze
+  end
+
+  def all_open
+    @all_open.dup.freeze
+  end
+
   def scrape_website
     usa = SkiResortStatus::Scraper.new("http://www.onthesnow.com/united-states/skireport.html")
     usa.scrape

@@ -100,18 +100,37 @@ class SkiResortStatus::CLI
       when "1"
         @controller.open_resorts(region)
 
-        input = gets.strip
+        new_input = gets.strip
         status = "open"
 
-        until input.to_i.between?(1,current_region.resorts.length)
-          puts "Invalid entry, please enter the resort number you wish to learn more about"
+        if controller.open.length > 0
+          until new_input.to_i.between?(1,controller.open.length)
+            puts "Invalid entry, please enter the resort number you wish to learn more about"
 
-          input = gets.strip
+            new_input = gets.strip
+          end
+
+          self.controller.resort_details(new_input,status)
+
+          input = "exit"
+          restart?
+        else
+          until new_input == "exit" || new_input == "back" || new_input == main
+            if new_input == "exit"
+              new_input == "exit"
+            elsif new_input == "back"
+              new_input == "back"
+            elsif new_input == "main"
+              new_input == "main"
+            else
+              puts "Invalid entry, there are no open resorts - you can type:"
+              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+
+              new_input == gets.strip
+            end
+          end
+          input = new_input
         end
-
-        self.controller.resort_details(input,status)
-        input = "exit"
-        restart?
       when "2"
         self.controller.weekend_resorts(region)
 
