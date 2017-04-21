@@ -1,5 +1,16 @@
 class SkiResortStatus::Controller
 
+  attr_reader :resorts, :open, :weekend, :closed, :all_open
+
+  def scrape_website
+    usa = SkiResortStatus::Scraper.new("http://www.onthesnow.com/united-states/skireport.html")
+    usa.scrape
+    usa.create_from_scrape
+
+    canada = SkiResortStatus::Scraper.new("http://www.onthesnow.com/canada/skireport.html")
+    canada.scrape
+    canada.create_from_scrape
+  end
 
   def list_locations
     SkiResortStatus::Location.all.each.with_index(1) do |attribute, index|
@@ -23,40 +34,102 @@ class SkiResortStatus::Controller
     location
   end
 
-  def open_resorts
-    SkiResortStatus::SkiResort.open.each.with_index(1) do |attribute, index|
-      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+  def list_resorts(current_region)
+    @resorts = current_region.resorts
+  end
+
+  def open_resorts(current_region)
+    @open = self.list_resorts(current_region).select {|resort| resort.status == "open"}
+
+    if @open.length == 0
+      puts ""
+      puts "No resorts are open in the sepcified region"
+      puts " "
+      puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
+    else
+      @open.each.with_index(1) do |attribute, index|
+        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+      end
+
+      puts ""
+      puts "Please select resort you want to learn more about"
+      puts ""
     end
   end
 
-  def weekend_resorts
-    SkiResortStatus::SkiResort.weekend.each.with_index(1) do |attribute, index|
-      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+  def weekend_resorts(current_region)
+    @weekend = self.list_resorts(current_region).select {|resort| resort.status == "weekend"}
+
+    if @weekend.length == 0
+      puts ""
+      puts "No resorts are only opened on weekends in the sepcified region"
+      puts " "
+      puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
+    else
+      @weekend.each.with_index(1) do |attribute, index|
+        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+      end
+
+      puts ""
+      puts "Please select resort you want to learn more about"
+      puts ""
     end
   end
 
-  def all_open
-    SkiResortStatus::SkiResort.all_open.each.with_index(1) do |attribute, index|
-      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+  def all_open(current_region)
+    @all_open = self.list_resorts(current_region).select {|resort| resort.status != "closed"}
+
+    if @all_open.length == 0
+      puts ""
+      puts "No resorts are open in the sepcified region"
+      puts " "
+      puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
+    else
+      @all_open.each.with_index(1) do |attribute, index|
+        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+      end
+
+      puts ""
+      puts "Please select resort you want to learn more about"
+      puts ""
     end
   end
 
-  def all_resorts
-    SkiResortStatus::SkiResort.all.each.with_index(1) do |attribute, index|
+  def all_resorts(current_region)
+
+    self.list_resorts.each.with_index(1) do |attribute, index|
       puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
     end
+
+    puts ""
+    puts "Please select resort you want to learn more about"
+    puts ""
+
   end
 
-  def closed_resorts
-    SkiResortStatus::SkiResort.closed.each.with_index(1) do |attribute, index|
-      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+  def closed_resorts(current_region)
+    @closed = self.list_resorts(current_region).select {|resort| resort.status == "closed"}
+
+    if @closed.length == 0
+      puts ""
+      puts "No resorts are closed in the sepcified region"
+      puts " "
+      puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
+    else
+      @closed.each.with_index(1) do |attribute, index|
+        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+      end
+
+      puts ""
+      puts "Please select resort you want to learn more about"
+      puts ""
     end
   end
 
   def resort_details(input,status)
     case status
     when "all"
-      resort = SkiResortStatus::SkiResort.all[input.to_i - 1]
+      resort = self.resorts[input.to_i - 1]
       puts "-----#{resort.name}-----"
       puts "Location: #{resort.region}"
       puts "Status: #{resort.status}"
@@ -64,7 +137,7 @@ class SkiResortStatus::Controller
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
       puts "Lifts open #{resort.lifts_open}"
     when "open"
-      resort = SkiResortStatus::SkiResort.open[input.to_i - 1]
+      resort = self.open[input.to_i - 1]
       puts "-----#{resort.name}-----"
       puts "Location: #{resort.region}"
       puts "Status: #{resort.status}"
@@ -72,7 +145,7 @@ class SkiResortStatus::Controller
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
       puts "Lifts open #{resort.lifts_open}"
     when "weekend"
-      resort = SkiResortStatus::SkiResort.weekend[input.to_i - 1]
+      resort = self.weekend[input.to_i - 1]
       puts "-----#{resort.name}-----"
       puts "Location: #{resort.region}"
       puts "Status: #{resort.status}"
@@ -80,7 +153,7 @@ class SkiResortStatus::Controller
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
       puts "Lifts open #{resort.lifts_open}"
     when "all_open"
-      resort = SkiResortStatus::SkiResort.all_open[input.to_i - 1]
+      resort = self.all_open[input.to_i - 1]
       puts "-----#{resort.name}-----"
       puts "Location: #{resort.region}"
       puts "Status: #{resort.status}"
@@ -88,7 +161,7 @@ class SkiResortStatus::Controller
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
       puts "Lifts open #{resort.lifts_open}"
     when "closed"
-      resort = SkiResortStatus::SkiResort.closed[input.to_i - 1]
+      resort = self.closed[input.to_i - 1]
       puts "-----#{resort.name}-----"
       puts "Location: #{resort.region}"
       puts "Status: #{resort.status}"

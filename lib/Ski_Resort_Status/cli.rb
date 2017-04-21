@@ -12,6 +12,9 @@ class SkiResortStatus::CLI
     puts "***********************************"
     puts ""
 
+    puts ""
+    puts "Loading resort details"
+    @controller.scrape_website
     main
   end
 
@@ -95,11 +98,7 @@ class SkiResortStatus::CLI
     while input != "exit"
       case input
       when "1"
-        @controller.open_resorts
-
-        puts ""
-        puts "Please select resort you want to learn more about"
-        puts ""
+        @controller.open_resorts(region)
 
         input = gets.strip
         status = "open"
@@ -114,10 +113,7 @@ class SkiResortStatus::CLI
         input = "exit"
         restart?
       when "2"
-        self.controller.weekend_resorts
-
-        puts ""
-        puts "Please select resort you want to learn more about"
+        self.controller.weekend_resorts(region)
 
         input = gets.strip
         status = "weekend"
@@ -132,10 +128,7 @@ class SkiResortStatus::CLI
         input = "exit"
         restart?
       when "3"
-        self.controller.all_open
-
-        puts ""
-        puts "Please select resort you want to learn more about"
+        self.controller.all_open(region)
 
         input = gets.strip
         status = "all_open"
@@ -150,10 +143,7 @@ class SkiResortStatus::CLI
         input = "exit"
         restart?
       when "4"
-        self.controller.all_resorts
-
-        puts ""
-        puts "Please select resort you want to learn more about"
+        self.controller.all_resorts(region)
 
         input = gets.strip
         status = "all"
@@ -168,10 +158,7 @@ class SkiResortStatus::CLI
         input = "exit"
         restart?
       when "5"
-        self.controller.closed_resorts
-
-        puts ""
-        puts "Please select resort you want to learn more about"
+        self.controller.closed_resorts(region)
 
         input = gets.strip
         status = "closed"
