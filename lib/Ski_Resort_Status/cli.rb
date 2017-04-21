@@ -95,7 +95,7 @@ class SkiResortStatus::CLI
     puts "  3) List all resorts that are open or open on weekends only"
     puts "  4) List all resorts including closed resorts"
     puts "  5) List all closed resorts"
-    puts "You can enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
+    puts "You can enter 'exit' - to log out, 'main' - to go back to the main menu or 'regions' to return to the region selector"
     puts ""
 
     resort_input = gets.strip
