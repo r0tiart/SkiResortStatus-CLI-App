@@ -3,23 +3,23 @@ class SkiResortStatus::Controller
   attr_reader :resorts, :open, :weekend, :closed, :every_open
 
   def resorts
-    @resorts.dup.freeze.sort
+    @resorts.dup.freeze
   end
 
   def open
-    @open.dup.freeze.sort
+    @open.dup.freeze
   end
 
   def weekend
-    @weekend.dup.freeze.sort
+    @weekend.dup.freeze
   end
 
   def closed
-    @closed.dup.freeze.sort
+    @closed.dup.freeze
   end
 
   def every_open
-    @every_open.dup.freeze.sort
+    @every_open.dup.freeze
   end
 
   def scrape_website
@@ -56,6 +56,7 @@ class SkiResortStatus::Controller
 
   def list_resorts(current_region)
     @resorts = current_region.resorts
+    @resorts
   end
 
   def open_resorts(current_region)

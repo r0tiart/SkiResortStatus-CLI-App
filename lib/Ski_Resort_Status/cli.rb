@@ -67,12 +67,12 @@ class SkiResortStatus::CLI
 
       region_input = gets.strip
 
-      if region_input.to_i.between?(1,current_location.regions.length)
-        region_input = "exit"
-
-        self.current_region = controller.current_region(current_location, region_input) #pulls the instance of the region
+      if region_input.to_i.between?(1,self.current_location.regions.length)
+        self.current_region = controller.current_region(self.current_location, region_input) #pulls the instance of the region
 
         self.resort_menu(current_region)
+
+        region_input = "exit"
       elsif region_input == "main"
         region_input = "exit"
         self.main
