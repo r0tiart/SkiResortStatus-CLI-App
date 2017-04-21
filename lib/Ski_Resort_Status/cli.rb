@@ -25,21 +25,23 @@ class SkiResortStatus::CLI
 
     input = nil
     # location_number = input
+    puts "Please Choose Location - by number"
+    puts ""
 
     while input != "exit"
-      puts "Please Choose Location - by number"
-      puts ""
 
       input = gets.strip
 
       if input.to_i.between?(1,SkiResortStatus::Location.all.length)
         self.current_location = controller.current_location(input)
 
-        self.regions_menu(current_location) #calls to list the regions by selected location
-
         input = "exit"
+
+        self.regions_menu(current_location) #calls to list the regions by selected location
+        break
       elsif input == "exit"
         input = "exit"
+        break
       else
         puts "Please re-enter the location number"
         input = gets.strip
@@ -47,6 +49,7 @@ class SkiResortStatus::CLI
     end
     puts ""
     puts "logging out"
+
   end
 
   def regions_menu(region) #lists regions - and ask to choose specific region
@@ -56,10 +59,10 @@ class SkiResortStatus::CLI
     puts ""
 
     input = nil
+    puts "Please Choose Region - by number"
+    puts ""
 
     while input != "exit"
-      puts "Please Choose Region - by number"
-      puts ""
 
       input = gets.strip
 
@@ -135,7 +138,7 @@ class SkiResortStatus::CLI
       when "2"
         self.controller.weekend_resorts(region)
 
-        input = gets.strip
+        new_input = gets.strip
         status = "weekend"
 
         if controller.weekend.length > 0
@@ -170,7 +173,7 @@ class SkiResortStatus::CLI
       when "3"
         self.controller.all_open(region)
 
-        input = gets.strip
+        new_input = gets.strip
         status = "all_open"
 
         if controller.every_open.length > 0
@@ -206,24 +209,22 @@ class SkiResortStatus::CLI
       when "4"
         self.controller.all_resorts(region)
 
-        input = gets.strip
+        new_input = gets.strip
         status = "all"
 
-        until input.to_i.between?(1,controller.resorts.length)
-          input = "exit"
-
+        until new_input.to_i.between?(1,controller.resorts.length)
           puts "Invalid entry, please enter the resort number you wish to learn more about"
 
-          input = gets.strip
+          new_input = gets.strip
         end
 
-        self.controller.resort_details(input,status)
+        self.controller.resort_details(new_input,status)
         input = "exit"
         self.restart?
       when "5"
         self.controller.closed_resorts(region)
 
-        input = gets.strip
+        new_input = gets.strip
         status = "closed"
 
         if controller.closed.length > 0

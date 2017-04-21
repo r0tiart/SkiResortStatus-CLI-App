@@ -173,7 +173,7 @@ class SkiResortStatus::Controller
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
       puts "Lifts open #{resort.lifts_open}"
     when "all_open"
-      resort = self.all_open[input.to_i - 1]
+      resort = self.every_open[input.to_i - 1]
       puts "-----#{resort.name}-----"
       puts "Location: #{resort.region}"
       puts "Status: #{resort.status}"
