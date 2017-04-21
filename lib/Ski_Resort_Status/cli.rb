@@ -113,7 +113,7 @@ class SkiResortStatus::CLI
           self.controller.resort_details(new_input,status)
 
           input = "exit"
-          restart?
+          self.restart?
         else
           until new_input == "exit" || new_input == "back" || new_input == main
             if new_input == "exit"
@@ -137,52 +137,75 @@ class SkiResortStatus::CLI
         input = gets.strip
         status = "weekend"
 
-        until input.to_i > 0
-          puts "Invalid entry, please enter the resort number you wish to learn more about"
+        if controller.weekend.length > 0
+          until new_input.to_i.between?(1,controller.weekend.length)
+            puts "Invalid entry, please enter the resort number you wish to learn more about"
 
-          input = gets.strip
+            new_input = gets.strip
+          end
+
+          self.controller.resort_details(new_input,status)
+
+          input = "exit"
+          self.restart?
+        else
+          until new_input == "exit" || new_input == "back" || new_input == main
+            if new_input == "exit"
+              new_input == "exit"
+            elsif new_input == "back"
+              new_input == "back"
+            elsif new_input == "main"
+              new_input == "main"
+            else
+              puts "Invalid entry, there are no open resorts - you can type:"
+              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+
+              new_input == gets.strip
+            end
+          end
+          input = new_input
         end
-
-        self.controller.resort_details(input,status)
-        input = "exit"
-        restart?
       when "3"
         self.controller.all_open(region)
 
         input = gets.strip
         status = "all_open"
 
-        until input.to_i > 0
-          puts "Invalid entry, please enter the resort number you wish to learn more about"
+        if controller.all_open.length > 0
+          until new_input.to_i.between?(1,controller.all_open.length)
+            puts "Invalid entry, please enter the resort number you wish to learn more about"
 
-          input = gets.strip
+            new_input = gets.strip
+          end
+
+          self.controller.resort_details(new_input,status)
+
+          input = "exit"
+          self.restart?
+        else
+          until new_input == "exit" || new_input == "back" || new_input == main
+            if new_input == "exit"
+              new_input == "exit"
+            elsif new_input == "back"
+              new_input == "back"
+            elsif new_input == "main"
+              new_input == "main"
+            else
+              puts "Invalid entry, there are no open resorts - you can type:"
+              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+
+              new_input == gets.strip
+            end
+          end
+          input = new_input
         end
-
-        self.controller.resort_details(input,status)
-        input = "exit"
-        restart?
       when "4"
         self.controller.all_resorts(region)
 
         input = gets.strip
         status = "all"
 
-        until input.to_i > 0
-          puts "Invalid entry, please enter the resort number you wish to learn more about"
-
-          input = gets.strip
-        end
-
-        self.controller.resort_details(input,status)
-        input = "exit"
-        restart?
-      when "5"
-        self.controller.closed_resorts(region)
-
-        input = gets.strip
-        status = "closed"
-
-        until input.to_i > 0
+        until input.to_i.between(1,controller.resorts.length)
           puts "Invalid entry, please enter the resort number you wish to learn more about"
 
           input = gets.strip
@@ -191,6 +214,40 @@ class SkiResortStatus::CLI
         self.controller.resort_details(input,status)
         input = "exit"
         self.restart?
+      when "5"
+        self.controller.closed_resorts(region)
+
+        input = gets.strip
+        status = "closed"
+
+        if controller.closed.length > 0
+          until new_input.to_i.between?(1,controller.closed.length)
+            puts "Invalid entry, please enter the resort number you wish to learn more about"
+
+            new_input = gets.strip
+          end
+
+          self.controller.resort_details(new_input,status)
+
+          input = "exit"
+          self.restart?
+        else
+          until new_input == "exit" || new_input == "back" || new_input == main
+            if new_input == "exit"
+              new_input == "exit"
+            elsif new_input == "back"
+              new_input == "back"
+            elsif new_input == "main"
+              new_input == "main"
+            else
+              puts "Invalid entry, there are no open resorts - you can type:"
+              puts "'exit' to log off, 'main' to go back to main menu or 'back' to return to previous menu"
+
+              new_input == gets.strip
+            end
+          end
+          input = new_input
+        end
       when "main"
         input = "exit"
         self.main
