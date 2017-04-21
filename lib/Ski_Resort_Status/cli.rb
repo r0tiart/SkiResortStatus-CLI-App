@@ -113,7 +113,6 @@ class SkiResortStatus::CLI
 
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
-<<<<<<< HEAD
             new_input = gets.strip
           end
 
@@ -216,7 +215,7 @@ class SkiResortStatus::CLI
         end
       when "4"
         self.controller.all_resorts(region)
-=======
+
   def all_resorts
     SkiResortStatus::SkiResort.all.each.with_index(1) do |resort, index|
       puts "#{index}. #{resort.name}, #{resort.region}, #{resort.status}"
@@ -243,7 +242,6 @@ class SkiResortStatus::CLI
       input = gets.chomp
     end
   end
->>>>>>> ee3d92cf2954953953ac021a08be3320f3784988
 
         new_input = gets.strip
         status = "all"
