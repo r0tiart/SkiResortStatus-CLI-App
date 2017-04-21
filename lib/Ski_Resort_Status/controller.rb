@@ -69,7 +69,7 @@ class SkiResortStatus::Controller
       puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
     else
       @open.each.with_index(1) do |attribute, index|
-        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+        puts "#{index}. #{attribute.name} - #{attribute.region.region}, #{attribute.status}"
       end
 
       puts ""
@@ -88,7 +88,7 @@ class SkiResortStatus::Controller
       puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
     else
       @weekend.each.with_index(1) do |attribute, index|
-        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+        puts "#{index}. #{attribute.name} - #{attribute.region.region}, #{attribute.status}"
       end
 
       puts ""
@@ -107,7 +107,7 @@ class SkiResortStatus::Controller
       puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
     else
       @every_open.each.with_index(1) do |attribute, index|
-        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+        puts "#{index}. #{attribute.name} - #{attribute.region.region}, #{attribute.status}"
       end
 
       puts ""
@@ -119,7 +119,7 @@ class SkiResortStatus::Controller
   def all_resorts(current_region)
 
     self.list_resorts(current_region).each.with_index(1) do |attribute, index|
-      puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+      puts "#{index}. #{attribute.name} - #{attribute.region.region}, #{attribute.status}"
     end
 
     puts ""
@@ -138,7 +138,7 @@ class SkiResortStatus::Controller
       puts "Enter 'exit' - to log out, 'main' - to go back to the main menu or 'back' to return to the region selector"
     else
       @closed.each.with_index(1) do |attribute, index|
-        puts "#{index}. #{attribute.name} - #{attribute.region}, #{attribute.status}"
+        puts "#{index}. #{attribute.name} - #{attribute.region.region}, #{attribute.status}"
       end
 
       puts ""
@@ -152,7 +152,7 @@ class SkiResortStatus::Controller
     when "all"
       resort = self.resorts[input.to_i - 1]
       puts "-----#{resort.name}-----"
-      puts "Location: #{resort.region}"
+      puts "Location: #{resort.region.region}"
       puts "Status: #{resort.status}"
       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
@@ -160,7 +160,7 @@ class SkiResortStatus::Controller
     when "open"
       resort = self.open[input.to_i - 1]
       puts "-----#{resort.name}-----"
-      puts "Location: #{resort.region}"
+      puts "Location: #{resort.region.region}"
       puts "Status: #{resort.status}"
       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
@@ -168,7 +168,7 @@ class SkiResortStatus::Controller
     when "weekend"
       resort = self.weekend[input.to_i - 1]
       puts "-----#{resort.name}-----"
-      puts "Location: #{resort.region}"
+      puts "Location: #{resort.region.region}"
       puts "Status: #{resort.status}"
       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
@@ -176,7 +176,7 @@ class SkiResortStatus::Controller
     when "all_open"
       resort = self.every_open[input.to_i - 1]
       puts "-----#{resort.name}-----"
-      puts "Location: #{resort.region}"
+      puts "Location: #{resort.region.region}"
       puts "Status: #{resort.status}"
       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
@@ -184,7 +184,7 @@ class SkiResortStatus::Controller
     when "closed"
       resort = self.closed[input.to_i - 1]
       puts "-----#{resort.name}-----"
-      puts "Location: #{resort.region}"
+      puts "Location: #{resort.region.region}"
       puts "Status: #{resort.status}"
       puts "Snowfall 24hr/72hr #{resort.new_snow_24}/#{resort.new_snow_72}"
       puts "Base/Upper Depths #{resort.base_depth} / #{resort.upper_depth}"
