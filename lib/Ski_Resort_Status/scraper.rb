@@ -42,6 +42,8 @@ class SkiResortStatus::Scraper
         status = "weekend"
       elsif table_row.at_css(".openstate.stateD2") != nil
         status = "closed"
+      elsif table_row.at_css(".openstate.stateD6") != nil
+        status = "closed"
       end
 
       new_resort = SkiResortStatus::SkiResort.find_or_create_by_name(name)
