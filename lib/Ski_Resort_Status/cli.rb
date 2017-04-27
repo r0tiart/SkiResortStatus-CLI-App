@@ -22,11 +22,11 @@ class SkiResortStatus::CLI
     puts ""
     self.controller.list_locations
     puts ""
-
-    main_input = gets.strip
     # location_number = input
     puts "Please Choose Location - by number"
     puts ""
+    main_input = gets.strip
+
 
     while main_input != "exit"
 
@@ -312,7 +312,6 @@ class SkiResortStatus::CLI
     restart_input = nil
 
     restart_input = gets.strip
-
 
     while restart_input != "exit"
 

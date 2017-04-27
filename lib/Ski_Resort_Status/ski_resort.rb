@@ -7,11 +7,8 @@ class SkiResortStatus::SkiResort
   @@weekend =[]
   @@open_plus_weekends = []
 
-  def initialize(resort_object)
-    resort_object.each do |key, value|
-      self.send("#{key}=",value)
-    end
-    #resorts have 1 region
+  def initialize(name)
+    @name = name
   end
 
   def self.find_or_create_by_name(name)
@@ -30,10 +27,6 @@ class SkiResortStatus::SkiResort
     self.new(name).tap { |resort| resort.save}
   end
 
-  def initialize(name)
-    @name = name
-  end
-
   def save
     @@all << self
     if self.status == "open"
@@ -50,7 +43,6 @@ class SkiResortStatus::SkiResort
   def self.all
     @@all.dup.freeze
   end
-
 
   def self.closed
     @@closed.dup.freeze
