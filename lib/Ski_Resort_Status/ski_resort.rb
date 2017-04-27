@@ -7,8 +7,10 @@ class SkiResortStatus::SkiResort
   @@weekend =[]
   @@open_plus_weekends = []
 
-  def initialize(name)
-    @name = name
+  def initialize(resort_object)
+    resort_object.each do |key, value|
+      self.send("#{key}=",value)
+    end
     #resorts have 1 region
   end
 

@@ -23,14 +23,12 @@ class SkiResortStatus::CLI
     self.controller.list_locations
     puts ""
 
-    main_input = nil
+    main_input = gets.strip
     # location_number = input
     puts "Please Choose Location - by number"
     puts ""
 
     while main_input != "exit"
-
-      main_input = gets.strip
 
       if main_input.to_i.between?(1,SkiResortStatus::Location.all.length)
         self.current_location = controller.current_location(main_input)
@@ -38,8 +36,8 @@ class SkiResortStatus::CLI
         self.regions_menu(current_location) #calls to list the regions by selected location
 
         main_input = "exit"
-      elsif main_input == "exit"
-        main_input = "exit"
+      # elsif main_input == "exit"
+      #   main_input = "exit"
       else
         puts "Please re-enter the location number"
         main_input = gets.strip
@@ -50,7 +48,6 @@ class SkiResortStatus::CLI
     puts "logging out"
 
     exit
-
   end
 
   def regions_menu(region) #lists regions - and ask to choose specific region
@@ -59,30 +56,34 @@ class SkiResortStatus::CLI
     self.controller.list_regions(region)
     puts ""
 
-    region_input = nil
     puts "Please Choose Region - by number"
     puts ""
 
+    region_input = gets.strip
+
     while region_input != "exit"
 
-      region_input = gets.strip
 
       if region_input.to_i.between?(1,self.current_location.regions.length)
         self.current_region = controller.current_region(self.current_location, region_input) #pulls the instance of the region
 
         self.resort_menu(current_region)
 
-        region_input = "exit"
+        # region_input = "exit"
       elsif region_input == "main"
         region_input = "exit"
         self.main
-      elsif region_input == "exit"
-        region_input = "exit"
+      # elsif region_input == "exit"
+      #   region_input = "exit"
       else
         puts "Please re-enter the location number"
         region_input = gets.strip
       end
     end
+    puts ""
+    puts "logging out"
+
+    exit
   end
 
   def resort_menu(region)
@@ -109,7 +110,7 @@ class SkiResortStatus::CLI
 
         if controller.open.length > 0
           until new_input.to_i.between?(1,controller.open.length)
-            resort_input = "exit"
+            # resort_input = "exit"
 
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
@@ -146,7 +147,7 @@ class SkiResortStatus::CLI
 
         if controller.weekend.length > 0
           until new_input.to_i.between?(1,controller.weekend.length)
-            resort_input = "exit"
+            # resort_input = "exit"
 
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
@@ -183,7 +184,7 @@ class SkiResortStatus::CLI
 
         if controller.every_open.length > 0
           until new_input.to_i.between?(1,controller.every_open.length)
-            resort_input = "exit"
+            # resort_input = "exit"
 
             puts "Invalid entry, please enter the resort number you wish to learn more about"
 
@@ -192,7 +193,7 @@ class SkiResortStatus::CLI
 
           self.controller.resort_details(new_input,status)
 
-          resort_input = "exit"
+          # resort_input = "exit"
           self.restart?
         else
           until new_input == "exit" || new_input == "back" || new_input == "main" || new_input == "regions"
@@ -216,33 +217,6 @@ class SkiResortStatus::CLI
       when "4"
         self.controller.all_resorts(region)
 
-  def all_resorts
-    SkiResortStatus::SkiResort.all.each.with_index(1) do |resort, index|
-      puts "#{index}. #{resort.name}, #{resort.region}, #{resort.status}"
-      puts ""
-    end
-
-    puts ""
-    puts "Please choose the resort you want to learn more about"
-    puts ""
-
-    input = gets.chomp
-
-    case input
-    when input.to_i.between?(1,SkiResortStatus::SkiResort.all.length)
-      resort_details(input)
-    when "region"
-      region_menu(@region_number)
-    when "exit"
-      puts "Logging out"
-    when "main"
-      regions
-    else
-      puts "Please type exit or main to continue"
-      input = gets.chomp
-    end
-  end
-
         new_input = gets.strip
         status = "all"
 
@@ -253,7 +227,7 @@ class SkiResortStatus::CLI
         end
 
         self.controller.resort_details(new_input,status)
-        resort_input = "exit"
+        # resort_input = "exit"
         self.restart?
       when "5"
         self.controller.closed_resorts(region)
@@ -262,7 +236,7 @@ class SkiResortStatus::CLI
         status = "closed"
 
         if controller.closed.length > 0
-          resort_input = "exit"
+          # resort_input = "exit"
 
           until new_input.to_i.between?(1,controller.closed.length)
             puts "Invalid entry, please enter the resort number you wish to learn more about"
@@ -272,7 +246,7 @@ class SkiResortStatus::CLI
 
           self.controller.resort_details(new_input,status)
 
-          resort_input = "exit"
+          # resort_input = "exit"
           self.restart?
         else
           until new_input == "exit" || new_input == "back" || new_input == "main" || new_input == "regions"
@@ -294,22 +268,26 @@ class SkiResortStatus::CLI
           resort_input = new_input
         end
       when "main"
-        resort_input = "exit"
+        # resort_input = "exit"
         self.main
       when "back"
-        resort_input = "exit"
+        # resort_input = "exit"
         self.resort_menu(current_region)
       when "regions"
-        resort_input = "exit"
+        # resort_input = "exit"
         self.regions_menu(current_location)
-      when "exit"
-        resort_input = "exit"
+      # when "exit"
+      #   resort_input = "exit"
       else
         "Please re-enter input"
 
         resort_input = gets.strip
       end
     end
+    puts ""
+    puts "logging out"
+
+    exit
   end
 
   def resort_details(input)
@@ -322,7 +300,7 @@ class SkiResortStatus::CLI
     puts "Base/Upper Depths: #{resort.base_depth}/#{resort.upper_depth}"
     puts "Lifts Open #{resort.lifts_open}"
 
-    restart?
+    self.restart?
   end
 
   def restart?
@@ -333,8 +311,10 @@ class SkiResortStatus::CLI
     puts "You can also type 'exit' to log out or main to return to the main menu"
     restart_input = nil
 
+    restart_input = gets.strip
+
+
     while restart_input != "exit"
-      restart_input = gets.strip
 
       case restart_input
       when "region"
@@ -343,8 +323,8 @@ class SkiResortStatus::CLI
       when "back"
         restart_input = "exit"
         self.resort_menu(current_region)
-      when "exit"
-        restart_input = "exit"
+      # when "exit"
+      #   restart_input = "exit"
       when "main"
         restart_input = "exit"
         self.main
@@ -357,5 +337,9 @@ class SkiResortStatus::CLI
         restart_input = gets.strip
       end
     end
+    puts ""
+    puts "logging out"
+
+    exit
   end
 end
