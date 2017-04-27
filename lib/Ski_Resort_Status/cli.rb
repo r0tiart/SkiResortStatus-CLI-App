@@ -88,6 +88,7 @@ class SkiResortStatus::CLI
 
   def resort_menu(region)
 
+    puts ""
     puts "--------#{region.region}--------"
     puts ""
     puts "What would you like to see for the #{region.region} region"
