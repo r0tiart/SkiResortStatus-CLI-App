@@ -23,11 +23,11 @@ class SkiResortStatus::Controller
   end
 
   def scrape_website
-    usa = SkiResortStatus::Scraper.new("http://www.onthesnow.com/united-states/skireport.html")
+    usa = SkiResortStatus::Scraper.new("https://www.onthesnow.com/united-states/skireport.html")
     usa.scrape
     usa.create_from_scrape
 
-    canada = SkiResortStatus::Scraper.new("http://www.onthesnow.com/canada/skireport.html")
+    canada = SkiResortStatus::Scraper.new("https://www.onthesnow.com/canada/skireport.html")
     canada.scrape
     canada.create_from_scrape
   end

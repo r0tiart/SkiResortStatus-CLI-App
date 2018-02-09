@@ -35,4 +35,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "nokogiri"
   spec.add_development_dependency "require_all"
+  spec.add_development_dependency "open_uri_redirections"
+
 end
