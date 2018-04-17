@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This CLI app scrapes data from Onthesnow.com using Nokogiri. Navigate throuh the regions within the US to narrow down ski resorts. You can further dive into each individual resort to determine data on ski resort, such as lifts open, trails open and snow depth. 
 
 ## Development
 
